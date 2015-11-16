@@ -1,0 +1,23 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  cache_directories:
+    - "~/docker"
+  override:
+    - docker info
+    - if [[ -e ~/docker/image.tar ]]; then docker load --input ~/docker/image.tar; fi
+    - docker build -t ericwang1976/refreshconn .
+    - mkdir -p ~/docker; docker save ericwang1976/conntrack > ~/docker/image.tar
+
+test:
+  override:
+    - docker run -d ericwang1976/refreshconn /bin/bash; sleep 20
+
+deployment:
+  hub: 
+    branch: master
+    commands:
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker push ericwang1976/refreshconn
