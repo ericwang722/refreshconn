@@ -9,4 +9,4 @@ HOST_IP=$(curl http://instance-data/latest/meta-data/public-ipv4)
 
 #ssh into host and run contrack
 ssh -tt -i ~/.ssh/ghe-admin-non-production-private-key.pem ec2-user@$HOST_IP   \
-"sudo conntrack-tools.x86_64 -y;sudo conntrack -D -p udp;sudo conntrack -F"
+"sudo yum install conntrack-tools.x86_64 -y;sudo conntrack -D -p udp;sudo conntrack -F"
