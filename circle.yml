@@ -9,7 +9,7 @@ dependencies:
     - docker info
     - if [[ -e ~/docker/image.tar ]]; then docker load --input ~/docker/image.tar; fi
     - docker build -t ericwang1976/refreshconn .
-    - mkdir -p ~/docker; docker save ericwang1976/conntrack > ~/docker/image.tar
+    - mkdir -p ~/docker; docker save ericwang1976/refreshconn > ~/docker/image.tar
 
 test:
   override:
